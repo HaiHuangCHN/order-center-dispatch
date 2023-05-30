@@ -1,10 +1,10 @@
-package com.nice.order.center.job;
+package com.nice.order.center.common;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class OrderCenterJobApplicationTests {
+class OrderCenterCommonApplicationTests {
 
     @Test
     void contextLoads() {
