@@ -5,31 +5,22 @@
 
     <parent>
         <groupId>com.nice</groupId>
-        <artifactId>order-center-job-schedule</artifactId>
+        <artifactId>order-center-job</artifactId>
         <version>0.0.1-SNAPSHOT</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
-    <artifactId>order-center-job-common</artifactId>
+    <artifactId>order-center-job-schedule</artifactId>
     <version>0.0.1-SNAPSHOT</version>
 
-    <name>order-center-job-common</name>
-    <description>Order Center Job Common</description>
+    <name>order-center-job-schedule</name>
+    <description>Order Center Job Schedule</description>
 
     <properties>
         <java.version>8</java.version>
     </properties>
 
     <dependencies>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
-            <scope>compile</scope>
-        </dependency>
     </dependencies>
 
     <build>
@@ -37,14 +28,6 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration>
-                    <excludes>
-                        <exclude>
-                            <groupId>org.projectlombok</groupId>
-                            <artifactId>lombok</artifactId>
-                        </exclude>
-                    </excludes>
-                </configuration>
             </plugin>
         </plugins>
     </build>

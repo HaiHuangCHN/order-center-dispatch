@@ -20,6 +20,7 @@
     <description>Order Center Job</description>
 
     <modules>
+        <module>order-center-job-schedule</module>
         <module>order-center-job-common</module>
     </modules>
 
