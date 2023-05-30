@@ -24,8 +24,6 @@
         <dependency>
             <groupId>com.nice</groupId>
             <artifactId>order-center-job-common</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-            <scope>compile</scope>
         </dependency>
     </dependencies>
 
