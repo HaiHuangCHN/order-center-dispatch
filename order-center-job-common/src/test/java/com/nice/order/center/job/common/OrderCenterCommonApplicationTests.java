@@ -1,4 +1,4 @@
-package com.nice.order.center.common;
+package com.nice.order.center.job.common;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
