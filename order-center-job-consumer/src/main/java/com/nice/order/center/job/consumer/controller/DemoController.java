@@ -20,7 +20,7 @@ public class DemoController {
     private String serverURL;
 
     @GetMapping(value = "nacos/consumer")
-    public String getDiscovery() {
+    public String nacosConsumer() {
         return restTemplate.getForObject(serverURL + "/getServerPort", String.class);
     }
 }
