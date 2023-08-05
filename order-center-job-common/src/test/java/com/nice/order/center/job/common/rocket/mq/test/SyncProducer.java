@@ -14,6 +14,8 @@ import java.io.UnsupportedEncodingException;
 
 /**
  * 同步消息
+ * <p>
+ * 这种可靠性同步地发送方式使用的比较广泛，比如：重要的消息通知，短信通知。
  *
  * @author hai.huang.a@outlook.com
  * @date 2023/7/9 23:56
