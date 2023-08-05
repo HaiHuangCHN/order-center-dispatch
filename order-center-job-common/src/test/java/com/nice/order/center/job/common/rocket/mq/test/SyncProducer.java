@@ -5,6 +5,7 @@ import org.apache.rocketmq.client.exception.MQBrokerException;
 import org.apache.rocketmq.client.exception.MQClientException;
 import org.apache.rocketmq.client.producer.DefaultMQProducer;
 import org.apache.rocketmq.client.producer.SendResult;
+import org.apache.rocketmq.client.producer.SendStatus;
 import org.apache.rocketmq.common.message.Message;
 import org.apache.rocketmq.remoting.common.RemotingHelper;
 import org.apache.rocketmq.remoting.exception.RemotingException;
@@ -22,21 +23,31 @@ public class SyncProducer {
 
     public static void main(String[] args) throws MQClientException, UnsupportedEncodingException, MQBrokerException,
             RemotingException, InterruptedException {
-        // Instantiate with a producer group name
+        // 1. 创建消息生产者 producer，并制定生产者组名
         DefaultMQProducer producer = new DefaultMQProducer("test_producer_group");
-        // Specify name server addresses
+        // 2. 指定 Nameserver 地址
         producer.setNamesrvAddr("47.115.219.13:9876");
         // producer.setVipChannelEnabled(false);
-        // Launch the instance
+        // 3. 启动producer
         producer.start();
         for (int i = 0; i < 10; i++) {
-            // Create a message instance, specifying topic, tag and message body
+            // 4. 创建消息对象，指定主题Topic、Tag和消息体
+            /**
+             * 参数一：消息主题Topic
+             * 参数二：消息Tag
+             * 参数三：消息内容
+             */
             Message msg = new Message("TopicTest" /* Topic */, "TagA" /* Tag */,
                     ("Hello RocketMQ " + i).getBytes(RemotingHelper.DEFAULT_CHARSET) /* Message body */);
             // Call send message to deliver message to one of brokers
             producer.setSendMsgTimeout(1000000);
+            // 5. 发送消息
             SendResult sendResult = producer.send(msg);
-            log.info("Send Result = {}", sendResult);
+            SendResult result = producer.send(msg);
+            // 发送状态
+            SendStatus status = result.getSendStatus();
+            log.info("发送结果：{}", result);
+            log.info("发送状态：{}", status);
         }
         // Shut down once the producer instance is no longer in use
         producer.shutdown();
