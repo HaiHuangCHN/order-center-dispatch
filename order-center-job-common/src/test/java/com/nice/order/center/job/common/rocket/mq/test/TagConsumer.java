@@ -20,7 +20,7 @@ public class TagConsumer {
 
     public static void main(String[] args) throws Exception {
         // 1. 创建消费者 Consumer，制定消费者组名
-        DefaultMQPushConsumer consumer = new DefaultMQPushConsumer("test_consumer_group_tag_filter");
+        DefaultMQPushConsumer consumer = new DefaultMQPushConsumer("consumer_group_test_tag_filter");
         // 2.指定 Nameserver 地址
         consumer.setNamesrvAddr("47.115.219.13:9876");
         // 3. 订阅主题Topic和Tag
