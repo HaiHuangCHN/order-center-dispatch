@@ -34,9 +34,11 @@ public class SyncProducer {
         producer.start();
         for (int i = 0; i < 10; i++) {
             // 4. 创建消息对象，指定主题Topic、Tag和消息体
-            // 参数一：消息主题Topic
-            // 参数二：消息Tag
-            // 参数三：消息内容
+            /**
+             * 参数一：消息主题Topic
+             * 参数二：消息Tag
+             * 参数三：消息内容
+             */
             Message msg = new Message("TopicTest", "TagA", ("Hello World " + i).getBytes(RemotingHelper.DEFAULT_CHARSET));
             // Call send message to deliver message to one of brokers
             producer.setSendMsgTimeout(1000000);

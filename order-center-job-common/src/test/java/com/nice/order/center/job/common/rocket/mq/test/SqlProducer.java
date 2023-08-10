@@ -32,7 +32,7 @@ public class SqlProducer {
              * 参数二：消息Tag
              * 参数三：消息内容
              */
-            Message msg = new Message("TopicTestSQLFilter", "Tag1", ("Hello World" + i).getBytes());
+            Message msg = new Message("TopicTestFilterSQL", "Tag1", ("Hello World" + i).getBytes());
 
             msg.putUserProperty("i", String.valueOf(i));
             // 5. 发送消息
