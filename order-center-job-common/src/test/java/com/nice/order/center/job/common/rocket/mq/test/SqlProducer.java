@@ -19,7 +19,7 @@ public class SqlProducer {
 
     public static void main(String[] args) throws Exception {
         // 1. 创建消息生产者 Producer，并制定生产者组名
-        DefaultMQProducer producer = new DefaultMQProducer("test_producer_group");
+        DefaultMQProducer producer = new DefaultMQProducer("producer_group_test");
         // 2. 指定 Nameserver 地址
         producer.setNamesrvAddr("47.115.219.13:9876");
         // 3. 启动 Producer
@@ -32,7 +32,7 @@ public class SqlProducer {
              * 参数二：消息Tag
              * 参数三：消息内容
              */
-            Message msg = new Message("TopicTestSQLFilter", "Tag1", ("Hello World" + i).getBytes());
+            Message msg = new Message("TopicTestFilterSQL", "Tag1", ("Hello World" + i).getBytes());
 
             msg.putUserProperty("i", String.valueOf(i));
             // 5. 发送消息

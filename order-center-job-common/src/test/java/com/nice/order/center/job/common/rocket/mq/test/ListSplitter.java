@@ -61,4 +61,5 @@ public class ListSplitter implements Iterator<List<Message>> {
 
         return subList;
     }
+
 }

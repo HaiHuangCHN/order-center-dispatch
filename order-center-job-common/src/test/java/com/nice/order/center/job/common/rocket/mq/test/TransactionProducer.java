@@ -20,7 +20,7 @@ public class TransactionProducer {
     public static void main(String[] args) throws Exception {
 
         // 1. 创建事务消息生产者 Producer，并制定生产者组名
-        TransactionMQProducer producer = new TransactionMQProducer("test_producer_group");
+        TransactionMQProducer producer = new TransactionMQProducer("producer_group_test");
         // 2. 指定 Nameserver 地址
         producer.setNamesrvAddr("47.115.219.13:9876");
 

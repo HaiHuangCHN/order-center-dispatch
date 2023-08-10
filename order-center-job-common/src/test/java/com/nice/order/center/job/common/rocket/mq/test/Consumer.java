@@ -22,8 +22,8 @@ public class Consumer {
 
     public static void main(String[] args) throws MQClientException {
 
-        // Instantiate with specified consumer group name
-        DefaultMQPushConsumer consumer = new DefaultMQPushConsumer("test_consumer_group");
+        // 1. 创建消费者Consumer，制定消费者组名
+        DefaultMQPushConsumer consumer = new DefaultMQPushConsumer("consumer_group_test");
 
         // Specify name server addresses
         consumer.setNamesrvAddr("47.115.219.13:9876");
