@@ -1,2 +1,31 @@
 server:
   port: 8081
+
+spring:
+  application:
+    name: order-center-job
+  cloud:
+    nacos:
+      discovery:
+        serverAddr: ${NACOS_SERVER_ADDR:}
+        username: ${NACOS_SERVER_USERNAME:}
+        password: ${NACOS_SERVER_PASSWORD:}
+        enabled: true
+
+feign:
+  sentinel:
+    enabled: true
+
+#feign:
+#  client:
+#    config:
+#      default:
+#        connectTimeout: 5000
+#        readTimeout: 5000
+#        loggerLevel: basic
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
