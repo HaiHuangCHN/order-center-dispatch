@@ -9,7 +9,6 @@ spring:
         serverAddr: ${NACOS_SERVER_ADDR:}
         username: ${NACOS_SERVER_USERNAME:}
         password: ${NACOS_SERVER_PASSWORD:}
-      enabled: true
 
 # 消费者将要去访问的微服务名称（注册成功的 Nacos 的微服务提供者）
 providers:
