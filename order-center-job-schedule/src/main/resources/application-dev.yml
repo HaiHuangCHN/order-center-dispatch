@@ -10,7 +10,8 @@ spring:
         serverAddr: ${NACOS_SERVER_ADDR:}
         username: ${NACOS_SERVER_USERNAME:}
         password: ${NACOS_SERVER_PASSWORD:}
-        enabled: true
+        namespace: 49631895-05c8-4267-a92e-dbce7abe43e5
+        group: ORDER_GROUP
 
 feign:
   sentinel:
