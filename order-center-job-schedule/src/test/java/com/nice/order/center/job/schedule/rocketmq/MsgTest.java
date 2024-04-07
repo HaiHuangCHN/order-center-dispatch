@@ -1,4 +1,4 @@
-package com.nice.order.center.job.common;
+package com.nice.order.center.job.schedule.rocketmq;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

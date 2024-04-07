@@ -1,4 +1,4 @@
-package com.nice.order.center.job.common;
+package com.nice.order.center.job.schedule.rocketmq;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,7 +18,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * @author haihuang95@zto.com
+ * @author hai.huang.a@outlook.com
  * @date 2023/8/25 22:37
  */
 @Slf4j
@@ -192,11 +192,11 @@ class RocketMqTest {
             Message<String> message = MessageBuilder.withPayload("事务消息===>" + i).build();
             TransactionSendResult res = rocketMQTemplate.sendMessageInTransaction("transaction-str:" + tags[i],
                     message, i + 1);
-            if (res.getLocalTransactionState().equals(LocalTransactionState.COMMIT_MESSAGE) && res.getSendStatus().equals(SendStatus.SEND_OK)) {
-                log.info("事物消息发送成功");
+            if (LocalTransactionState.COMMIT_MESSAGE.equals(res.getLocalTransactionState()) && SendStatus.SEND_OK.equals(res.getSendStatus())) {
+                log.info("事务消息发送成功");
             }
 
-            log.info("事物消息发送结果:{}", res);
+            log.info("事务消息发送结果:{}", res);
         }
     }
 
