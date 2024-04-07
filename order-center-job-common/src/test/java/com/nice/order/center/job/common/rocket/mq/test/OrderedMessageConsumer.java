@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * 顺序消息
  *
- * @author haihuang95@zto.com
+ * @author hai.huang.a@outlook.com
  * @date 2023/8/11 17:14
  */
 public class OrderedMessageConsumer {

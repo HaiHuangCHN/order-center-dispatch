@@ -1,6 +1,6 @@
-package com.nice.order.center.job.common;
+package com.nice.order.center.job.schedule.rocketmq;
 
-import lombok.AllArgsConstructor;
+import com.nice.order.center.job.schedule.OrderCenterJobScheduleApplication;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.rocketmq.client.producer.LocalTransactionState;
 import org.apache.rocketmq.client.producer.SendCallback;
@@ -8,9 +8,13 @@ import org.apache.rocketmq.client.producer.SendResult;
 import org.apache.rocketmq.client.producer.SendStatus;
 import org.apache.rocketmq.client.producer.TransactionSendResult;
 import org.apache.rocketmq.spring.core.RocketMQTemplate;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.support.MessageBuilder;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -18,25 +22,35 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * @author haihuang95@zto.com
+ * @author hai.huang.a@outlook.com
  * @date 2023/8/25 22:37
  */
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes = {OrderCenterJobScheduleApplication.class})
 @Slf4j
-@AllArgsConstructor
-class RocketMqTest {
+public class RocketMqTest {
 
-    private final RocketMQTemplate rocketMQTemplate;
+    /**
+     * org.junit.runners.model.InvalidTestClassError: Invalid test class 'com.nice.order.center.job.schedule.rocketmq.RocketMqTest':
+     * 1. Test class should have exactly one public zero-argument constructor
+     * 2. No runnable methods
+     * <p>
+     * Due to the #1, field injection is the way I choose to resolve
+     */
+    @Autowired
+    private RocketMQTemplate rocketMQTemplate;
 
     /**
      * 同步消息-
      */
     @Test
-    void syncSendStr() {
-        // syncSend 和 send 是等价的
-        rocketMQTemplate.syncSend("first-topic-str", "hello world test1");
+    public void syncSendStr() {
+        rocketMQTemplate.syncSend("TopicTest", "hello world syncSendStr1");
+        // send 和 syncSend 是等价的
         // send 底层还是会调用 syncSend 的代码
-        rocketMQTemplate.send("first-topic-str", MessageBuilder.withPayload("hello world test1").build());
-        SendResult res = rocketMQTemplate.syncSend("first-topic-str:tag1", "hello world test2");
+        rocketMQTemplate.send("TopicTest", MessageBuilder.withPayload("hello world syncSendStr2").build());
+        // TopicTest:tag1 底层会做处理，以「:」作为分割符，前者=Topic，后者=Tag
+        SendResult res = rocketMQTemplate.syncSend("TopicTest:tag1", "hello world syncSendStr3 with tag");
         log.info("syncSend===>{}", res);
     }
 
@@ -44,9 +58,9 @@ class RocketMqTest {
      * 同步消息-
      */
     @Test
-    void syncSendPojo() {
-        MsgTest msg = new MsgTest(1, "hello world test3", new Date());
-        SendResult res = rocketMQTemplate.syncSend("first-topic-pojo", MessageBuilder.withPayload(msg).build());
+    public void syncSendPojo() {
+        MsgTest msg = new MsgTest(1, "hello world syncSendPojo", new Date());
+        SendResult res = rocketMQTemplate.syncSend("TopicTest", MessageBuilder.withPayload(msg).build());
         log.info("syncSend===>{}", res);
     }
 
@@ -58,7 +72,7 @@ class RocketMqTest {
      * 这种方式任然需要返回发送消息任务的执行结果，异步不影响后续任务，不会造成阻塞
      */
     @Test
-    void asyncSendStr() {
+    public void asyncSendStr() {
         rocketMQTemplate.asyncSend("first-topic-str:tag1", "hello world test2 asyncSendStr", new SendCallback() {
             @Override
             public void onSuccess(SendResult sendResult) {
@@ -79,7 +93,7 @@ class RocketMqTest {
      * 应用场景：适用于某些耗时非常短，但对可靠性要求并不高的场景，例如日志收集
      */
     @Test
-    void sendOneWayStr() {
+    public void sendOneWayStr() {
         rocketMQTemplate.sendOneWay("first-topic-str:tag1", "hello world test2 sendOneWayStr");
         log.info("单向消息已发送");
     }
@@ -88,7 +102,7 @@ class RocketMqTest {
      * 批量消息
      */
     @Test
-    void asyncSendBatch() {
+    public void asyncSendBatch() {
         Message<String> msg = MessageBuilder.withPayload("hello world test1").build();
         List<Message<String>> msgList = Arrays.asList(msg, msg, msg, msg, msg);
         SendResult res = rocketMQTemplate.syncSend("first-topic-str:tag1", msgList);
@@ -104,7 +118,7 @@ class RocketMqTest {
      * 延迟的底层方法是用定时任务实现的。
      */
     @Test
-    void syncSendDelayedStr() {
+    public void syncSendDelayedStr() {
         Message<String> message = MessageBuilder.withPayload("syncSendDelayedStr" + new Date()).build();
         /**
          * @param destination formats: `topicName:tags`
@@ -113,7 +127,7 @@ class RocketMqTest {
          * @param delayLevel 延迟级别  1到18
          * @return {@link SendResult}
          */
-        SendResult res = rocketMQTemplate.syncSend("first-topic-str:tag1", message, 3000, 3);
+        SendResult res = rocketMQTemplate.syncSend("TopicTestDelay:tag1", message, 3000, 3);
         log.info("res==>{}", res);
     }
 
@@ -121,7 +135,7 @@ class RocketMqTest {
      * 异步延迟消息
      */
     @Test
-    void asyncSendDelayedStr() {
+    public void asyncSendDelayedStr() {
         // Callback
         SendCallback sc = new SendCallback() {
             @Override
@@ -143,7 +157,7 @@ class RocketMqTest {
      * 顺序消息
      */
     @Test
-    void SendOrderStr() {
+    public void SendOrderStr() {
         List<MsgTest> msgList = new ArrayList<>();
         for (int i = 0; i < 100; i++) {
             msgList.add(new MsgTest(100, "我是id为100的第" + (i + 1) + "条消息", new Date()));
@@ -185,18 +199,18 @@ class RocketMqTest {
      * 事务消息  注意这里还有一个监听器 TransactionListenerImpl
      */
     @Test
-    void sendTransactionStr() {
+    public void sendTransactionStr() {
 
         String[] tags = {"TAGA", "TAGB", "TAGC"};
         for (int i = 0; i < 3; i++) {
             Message<String> message = MessageBuilder.withPayload("事务消息===>" + i).build();
             TransactionSendResult res = rocketMQTemplate.sendMessageInTransaction("transaction-str:" + tags[i],
                     message, i + 1);
-            if (res.getLocalTransactionState().equals(LocalTransactionState.COMMIT_MESSAGE) && res.getSendStatus().equals(SendStatus.SEND_OK)) {
-                log.info("事物消息发送成功");
+            if (LocalTransactionState.COMMIT_MESSAGE.equals(res.getLocalTransactionState()) && SendStatus.SEND_OK.equals(res.getSendStatus())) {
+                log.info("事务消息发送成功");
             }
 
-            log.info("事物消息发送结果:{}", res);
+            log.info("事务消息发送结果:{}", res);
         }
     }
 

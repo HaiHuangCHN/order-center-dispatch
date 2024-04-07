@@ -25,6 +25,15 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
         </dependency>
+<!--        RocketMQ 快速开始-->
+<!--        https://rocketmq.apache.org/zh/docs/quickStart/01quickstart/-->
+<!--        <dependency>-->
+<!--            <groupId>org.apache.rocketmq</groupId>-->
+<!--            <artifactId>rocketmq-client-java</artifactId>-->
+<!--            <version>5.0.5</version>-->
+<!--        </dependency>-->
+<!--        RocketMQ 快速开始-->
+<!--        https://rocketmq.apache.org/zh/docs/quickStart/01quickstart/-->
         <dependency>
             <groupId>org.apache.rocketmq</groupId>
             <artifactId>rocketmq-spring-boot-starter</artifactId>
@@ -34,6 +43,11 @@
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
             <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 

@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * 测试控制器
  *
- * @author haihuang95@zto.com
+ * @author hai.huang.a@outlook.com
  * @date 2023/8/1 16:09
  */
 @RestController
