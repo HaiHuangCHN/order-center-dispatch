@@ -1,0 +1,41 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: order-center-dispatch
+  cloud:
+    nacos:
+      discovery:
+        serverAddr: ${NACOS_SERVER_ADDR:}
+        username: ${NACOS_SERVER_USERNAME:}
+        password: ${NACOS_SERVER_PASSWORD:}
+        namespace: 49631895-05c8-4267-a92e-dbce7abe43e5
+        group: ORDER_GROUP
+
+feign:
+  sentinel:
+    enabled: true
+
+#feign:
+#  client:
+#    config:
+#      default:
+#        connectTimeout: 5000
+#        readTimeout: 5000
+#        loggerLevel: basic
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+
+
+rocketmq:
+  name-server: 47.115.219.13:9876 # 访问地址
+  producer:
+    group: Pro_Group # 必须指定group
+    send-message-timeout: 3000 # 消息发送超时时长，默认3s
+    retry-times-when-send-failed: 3 # 同步发送消息失败重试次数，默认2
+    retry-times-when-send-async-failed: 3 # 异步发送消息失败重试次数，默认2

@@ -12,17 +12,17 @@
     </parent>
 
     <groupId>com.nice</groupId>
-    <artifactId>order-center-job</artifactId>
+    <artifactId>order-center-dispatch</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
 
-    <name>order-center-job</name>
-    <description>Order Center Job</description>
+    <name>order-center-dispatch</name>
+    <description>Order Center Dispatch</description>
 
     <modules>
-        <module>order-center-job-schedule</module>
-        <module>order-center-job-common</module>
-        <module>order-center-job-consumer</module>
+        <module>order-center-dispatch-schedule</module>
+        <module>order-center-dispatch-common</module>
+        <module>order-center-dispatch-consumer</module>
     </modules>
 
     <properties>
@@ -54,7 +54,7 @@
         <dependencies>
             <dependency>
                 <groupId>com.nice</groupId>
-                <artifactId>order-center-job-common</artifactId>
+                <artifactId>order-center-dispatch-common</artifactId>
                 <version>0.0.1-SNAPSHOT</version>
             </dependency>
             <dependency>
