@@ -9,10 +9,10 @@ import org.springframework.web.client.RestTemplate;
 
 @SpringBootApplication
 @EnableDiscoveryClient
-public class OrderCenterJobConsumerApplication {
+public class OrderCenterDispatchConsumerApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(OrderCenterJobConsumerApplication.class, args);
+        SpringApplication.run(OrderCenterDispatchConsumerApplication.class, args);
     }
 
     @Bean
